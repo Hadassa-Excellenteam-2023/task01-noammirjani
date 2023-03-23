@@ -98,7 +98,7 @@ void Test::testStack() {
 
     // Test default constructor
     Stack stack1;
-    std::cout << "Is stack1 empty? " << stack1.is_empty() << std::endl;
+    std::cout << "Is stack1 empty? " << stack1.is_empty() << "\n\n";
 
     // Test push function
     stack1.push(1);
@@ -107,24 +107,24 @@ void Test::testStack() {
 
     // Test copy constructor and operator==
     Stack stack2 = stack1;
-    std::cout << "Are stack1 and stack2 equal? " << (stack1 == stack2) << std::endl;
+    std::cout << "Are stack1 and stack2 equal? " << (stack1 == stack2) << "\n\n";
 
     // Test move constructor
     Stack stack3 = std::move(stack1);
-    std::cout << "Is stack1 empty? " << stack1.is_empty() << std::endl;
-    std::cout << "Is stack3 equal to the original stack1? " << (stack3 == stack2) << std::endl;
+    std::cout << "Is stack1 empty? " << stack1.is_empty() << "\n\n";
+    std::cout << "Is stack3 equal to the original stack1? " << (stack3 == stack2) << "\n\n";
 
     // Test pop function
-    std::cout << "Popped value from stack3: " << stack3.pop() << std::endl;
+    std::cout << "Popped value from stack3: " << stack3.pop() << "\n\n";
 
     // Test operator!=
-    std::cout << "Are stack2 and stack3 not equal? " << (stack2 != stack3) << std::endl;
+    std::cout << "Are stack2 and stack3 not equal? " << (stack2 != stack3) << "\n\n";
 
     // Test operator<
-    std::cout << "Is stack2 smaller than stack3? " << (stack2 < stack3) << std::endl;
+    std::cout << "Is stack2 smaller than stack3? " << (stack2 < stack3) << "\n\n";
 
     // Test operator>
-    std::cout << "Is stack2 greater than stack3? " << (stack2 > stack3) << std::endl;
+    std::cout << "Is stack2 greater than stack3? " << (stack2 > stack3) << "\n\n";
 
     // Test operator+=
     stack2 += stack3;
@@ -132,7 +132,7 @@ void Test::testStack() {
     while (!stack2.is_empty()) {
         std::cout << stack2.pop() << " ";
     }
-    std::cout << std::endl;
+    std::cout << "\n\n";
 
     // Test operator+
     Stack stack4 = stack2 + stack3;
@@ -140,7 +140,7 @@ void Test::testStack() {
     while (!stack4.is_empty()) {
         std::cout << stack4.pop() << " ";
     }
-    std::cout << std::endl;
+    std::cout << "\n\n";
 
     // Test operator+= with integer value
     stack3 += 5;
@@ -149,7 +149,7 @@ void Test::testStack() {
     while (!stack3.is_empty()) {
         std::cout << stack3.pop() << " ";
     }
-    std::cout << std::endl;
+    std::cout << "\n\n";
 
     // Test operator-= with integer value
     stack5 -= 2;
@@ -158,7 +158,7 @@ void Test::testStack() {
     while (!stack5.is_empty()) {
         std::cout << stack5.pop() << " ";
     }
-    std::cout << std::endl;
+    std::cout << "\n\n";
 
     // Test operator*= with integer value
     stack6 *= 3;
@@ -166,8 +166,7 @@ void Test::testStack() {
     while (!stack6.is_empty()) {
         std::cout << stack6.pop() << " ";
     }
-    std::cout << std::endl;
+    std::cout << "\n\n";
 
-    std::cout << "\n end of stack test" << std::endl;
-    std::cout << std::endl;
+    std::cout << "end of stack test";
 }

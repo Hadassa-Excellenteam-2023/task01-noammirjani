@@ -36,14 +36,14 @@ Stack& Stack::operator=(Stack&& other) noexcept {
 
 //---------------  accessors ------------------------
 void Stack::push(int value) {
-    m_stack.push_front(value);
+    m_stack.push_back(value);
 }
 
 
 int Stack::pop() {
     if (is_empty()) throw std::out_of_range("Stack is empty");
-    int result = m_stack[TOP];
-    m_stack.pop_front();
+    int result = m_stack[m_stack.size() - 1];
+    m_stack.pop_back();
     return result;
 }
 

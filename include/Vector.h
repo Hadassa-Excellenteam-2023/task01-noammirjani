@@ -6,7 +6,7 @@
 class Vector {
 public:
     //constructors
-    explicit Vector (size_t = 0, int = 0);
+    explicit Vector (size_t = 1, int = 0);
     Vector(const Vector&);
     Vector(Vector&&) noexcept;
 

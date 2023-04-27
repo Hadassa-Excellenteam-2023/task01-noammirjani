@@ -5,7 +5,7 @@
 class Stack {
 public:
     //constructors
-    explicit Stack(size_t size = 0, int value = 0);
+    explicit Stack(size_t size = 1, int value = 0);
     Stack(const Stack& other);
     Stack(Stack&& other) noexcept;
 

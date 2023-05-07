@@ -11,7 +11,7 @@ Vector::~Vector() {
 Vector::Vector(size_t size, int value)
     : m_size(size), m_vector(new int[size]), m_capacity(size ? size : 1) {
 
-    for (auto i = 0; i < (int) size; i++) {
+    for (size_t i = 0; i < size; i++) {
         m_vector[i] = value;
     }
 }
@@ -19,41 +19,25 @@ Vector::Vector(size_t size, int value)
 
 //copy constructor
 Vector::Vector(const Vector& other)
-    : m_size(other.m_size), m_vector(new int[other.m_capacity]), m_capacity(other.m_capacity){
+    : m_size(other.size()), m_vector(new int[other.capacity()]), m_capacity(other.m_capacity) {
 
-    for (auto i = 0; i < (int)m_size; i++) {
+    for (size_t i = 0; i < m_size; i++) {
         m_vector[i] = other.data()[i];
     }
 }
 
 
 //move constructor - moves the contents of the given vector into a new vector.
-Vector::Vector(Vector&& other) noexcept
-    : m_size(other.m_size), m_vector(other.m_vector), m_capacity(other.m_capacity) {
-
-    other.m_size = 0;
-    other.m_vector = nullptr;
-    other.m_capacity = 0;
+Vector::Vector(Vector&& other) noexcept 
+    : Vector() {
+    swap(other);
 }
 
 
 //copy assignment - copies the contents of the given vector to the current vector.
 Vector& Vector::operator=(const Vector& other) noexcept{
-
-    if(this == &other) return *this;
-
-    if (m_capacity < other.m_size) {
-        delete[] m_vector;
-        m_vector = new int[other.m_size];
-        m_capacity = other.m_size;
-    }
-
-    m_size = other.m_size;
-
-    for (auto i = 0; i < (int) m_size; i++) {
-        m_vector[i] = other.data()[i];
-    }
-
+    Vector temp(other);
+    swap(temp); 
     return *this;
 }
 
@@ -62,14 +46,14 @@ Vector& Vector::operator=(const Vector& other) noexcept{
 Vector& Vector::operator=(Vector&& other) noexcept{
 
     if(this != &other) {
-        m_size = other.m_size;
-        m_capacity = other.m_capacity;
+        m_size = other.size();
+        m_capacity = other.capacity();
         m_vector = other.m_vector;
 
         other.m_size = 0;
         other.m_capacity = 0;
         other.m_vector = nullptr;
-    }
+    } 
 
     return *this;
 }
@@ -86,14 +70,10 @@ void Vector::push_back(const int value){
 
 //Removes the last element of the vector.
 void Vector::pop_back(){
-    if(m_size <= 0) return;
-
+    
     --m_size;
     m_vector[m_size] = 0;
 
-    if(m_size < m_capacity/2) {
-        resize(m_capacity/2);
-    }
 
     if(m_size == 0) {
         m_capacity = 1;
@@ -159,11 +139,11 @@ void Vector::resize() {
 //Resizes the vector to the given capacity -
 // can shrink or multiple capacity, copies the data.
 void Vector::resize(const size_t newCapacity) {
-    if(newCapacity < 0) return;
+    if(newCapacity < 0) std::out_of_range("capacity out of range");
 
     int* temp = new int[newCapacity];
 
-    for (auto i = 0; i < (int)m_size; i++) {
+    for (size_t i = 0; i < m_size; i++) {
         temp[i] = m_vector[i];
     }
 
@@ -176,7 +156,7 @@ void Vector::resize(const size_t newCapacity) {
 //Inserts a new element at the given position.
 void Vector::insert(size_t target, const int value) {
 
-    if(target > m_size + 1 || target < 0)
+    if(target > m_size + 1)
         throw std::out_of_range("Index out of range");
 
     if (m_size == m_capacity) resize();
@@ -201,9 +181,6 @@ void Vector::erase(size_t target) {
 
     m_vector[--m_size] = 0;
 
-    if(m_size < m_capacity/2) {
-        resize(m_capacity/2);
-    }
 }
 
 
@@ -235,10 +212,10 @@ const int& Vector::operator[](size_t index) const {
 
 //operator==
 bool Vector::operator==(const Vector& other) const {
-    if(m_size != other.m_size) return false;
+    if(m_size != other.size()) return false;
 
-    for (auto i = 0; i < (int)m_size; ++i) {
-        if(m_vector[i] != other.m_vector[i]) return false;
+    for (size_t i = 0; i < m_size; ++i) {
+        if(m_vector[i] != other.data()[i]) return false;
     }
 
     return true;

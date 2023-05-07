@@ -39,6 +39,7 @@ public:
     void pop_back();
     void pop_front();
 
+
 private:
     int* m_vector;
     size_t m_size;

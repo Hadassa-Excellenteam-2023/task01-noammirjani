@@ -10,7 +10,7 @@ public:
     Stack(Stack&& other) noexcept;
 
     //destructor
-    ~Stack();
+   // ~Stack();
 
     //assignment operators
     Stack& operator=(const Stack& other);

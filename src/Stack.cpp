@@ -16,10 +16,6 @@ Stack::Stack(Stack&& other) noexcept
     : m_stack(std::move(other.m_stack)) {}
 
 
-//destructor
-Stack::~Stack() = default;
-
-
 //copy assignment operator
 Stack& Stack::operator=(const Stack& other) {
     if (this != &other) m_stack = other.m_stack;
@@ -92,7 +88,7 @@ Stack& Stack::operator+=(const Stack& other) {
 
 //-------------- arithmetic operators ---------------
 Stack& Stack::operator+=(const int value) {
-    for (auto i = 0; i < m_stack.size(); i++) {
+    for (size_t i = 0; i < m_stack.size(); i++) {
         m_stack[i] += value;
     }
     return *this;
@@ -100,10 +96,9 @@ Stack& Stack::operator+=(const int value) {
 
 
 Stack& Stack::operator-=(const int value) {
-    for (auto i = 0; i < m_stack.size(); i++) {
-        m_stack[i] -= value;
-    }
-    return *this;
+
+    *this += -value;
+    return *this; 
 }
 
 
@@ -116,6 +111,9 @@ Stack& Stack::operator*=(const int value) {
 
 
 Stack& Stack::operator/=(const int value) {
+
+    if(value == 0)  throw std::runtime_error("can not divide by 0");
+
     for (auto i = 0; i < m_stack.size(); i++) {
         m_stack[i] /= value;
     }
